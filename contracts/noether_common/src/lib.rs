@@ -1,5 +1,5 @@
 #![no_std]
-use soroban_sdk::{contracttype, Address};
+use soroban_sdk::{contracttype, contracterror, Address, Env};
 
 /// Asset enum representing supported assets
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -29,12 +29,30 @@ pub struct Position {
 }
 
 /// Error enum for common contract errors
+#[contracterror]
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
-#[contracttype]
+#[repr(u32)]
 pub enum Error {
-    SlippageExceeded,
-    OracleStale,
-    PriceDivergence,
-    OverLeveraged,
+    SlippageExceeded = 1,
+    OracleStale = 2,
+    PriceDivergence = 3,
+    OverLeveraged = 4,
+    AssetNotSupported = 5,
+    Unauthorized = 6,
+    AlreadyInitialized = 7,
+    NotInitialized = 8,
+}
+
+/// Oracle price data structure
+#[derive(Clone, Debug)]
+#[contracttype]
+pub struct PriceData {
+    pub price: i128,
+    pub timestamp: u64,
+}
+
+/// Oracle trait for price fetching
+pub trait OracleTrait {
+    fn get_price(env: Env, asset: Asset) -> Result<i128, Error>;
 }
 
