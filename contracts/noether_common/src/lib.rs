@@ -41,6 +41,8 @@ pub enum Error {
     Unauthorized = 6,
     AlreadyInitialized = 7,
     NotInitialized = 8,
+    InvalidInput = 9,
+    InsufficientBalance = 10,
 }
 
 /// Oracle price data structure

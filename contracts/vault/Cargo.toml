@@ -11,10 +11,8 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 soroban-sdk.workspace = true
 soroban-token-sdk.workspace = true
-noether-types = { path = "../../shared/types" }
-noether-errors = { path = "../../shared/errors" }
+noether_common = { path = "../noether_common" }
 
 [dev-dependencies]
 soroban-sdk = { workspace = true, features = ["testutils"] }
 soroban-token-sdk.workspace = true
-
